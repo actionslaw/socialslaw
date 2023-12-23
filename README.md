@@ -1,4 +1,4 @@
-# Actionslaw
+# Socialslaw
 
 Automation workflows for GitHub Actions, but soft and tasty.
 
