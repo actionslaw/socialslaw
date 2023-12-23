@@ -12,7 +12,7 @@ jobs:
     outputs:
       items: ${{ steps.trigger.outputs.items }}
     steps:
-      - uses: actionslaw/actionslaw-action@v0.9
+      - uses: actionslaw/actionslaw-action@v0.16
         id: trigger
         with:
           on: '
@@ -25,6 +25,7 @@ jobs:
 
   print:
     needs: activitypub
+    if: ${{needs.actionslaw.outputs.items != '[]' && needs.actionslaw.outputs.items != ''}}
     strategy:
       matrix:
         items: ${{fromJSON(needs.activitypub.outputs.items)}}
@@ -41,6 +42,7 @@ jobs:
 
   twitter:
     needs: activitypub
+    if: ${{needs.actionslaw.outputs.items != '[]' && needs.actionslaw.outputs.items != ''}}
     strategy:
       matrix:
         items: ${{fromJSON(needs.activitypub.outputs.items)}}
@@ -77,6 +79,7 @@ jobs:
 
   bluesky:
     needs: activitypub
+    if: ${{needs.actionslaw.outputs.items != '[]' && needs.actionslaw.outputs.items != ''}}
     strategy:
       matrix:
         items: ${{fromJSON(needs.activitypub.outputs.items)}}
