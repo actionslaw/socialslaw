@@ -1,0 +1,39 @@
+name: Actionslaw
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  push:
+    branches:
+      - main
+
+jobs:
+  actionslaw:
+    runs-on: ubuntu-latest
+    outputs:
+      items: ${{ steps.trigger.outputs.items }}
+    steps:
+      - uses: actionslaw/actionslaw-action@v0.9
+        id: trigger
+        with:
+          on: '
+            {
+              "rss": {
+                "url": "https://hnrss.org/newest?points=300&count=3"
+              }
+            }'
+
+  print:
+    needs: actionslaw
+    strategy:
+      matrix:
+        items: ${{fromJSON(needs.actionslaw.outputs.items)}}
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{matrix.items.title}}
+          link: ${{matrix.items.link}}
+        run: |
+          echo title: $title
+          echo link: $link
