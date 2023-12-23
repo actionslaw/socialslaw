@@ -12,7 +12,7 @@ jobs:
     outputs:
       items: ${{ steps.trigger.outputs.items }}
     steps:
-      - uses: actionslaw/actionslaw-action@v0.12
+      - uses: actionslaw/actionslaw-action@v0.13
         id: trigger
         with:
           on: '
