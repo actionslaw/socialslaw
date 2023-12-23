@@ -24,7 +24,7 @@ jobs:
 
   print:
     needs: actionslaw
-    if: ${{fromJSON(needs.actionslaw.outputs.items)}} != []
+    if: ${{needs.actionslaw.outputs.items != '[]' && needs.actionslaw.outputs.items != ''}}
     strategy:
       matrix:
         items: ${{fromJSON(needs.actionslaw.outputs.items)}}
