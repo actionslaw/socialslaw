@@ -2,5 +2,8 @@
   "name": "actionslaw",
   "version": "0.1.0",
   "description": "Automation workflows for GitHub Actions, but soft and tasty",
-  "author": "Ric Wood <ric@grislyeye.com>"
+  "author": "Ric Wood <ric@grislyeye.com>",
+  "scripts": {
+    "start": "act"
+  }
 }
