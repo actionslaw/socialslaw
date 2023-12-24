@@ -12,7 +12,7 @@ jobs:
     outputs:
       items: ${{ steps.trigger.outputs.items }}
     steps:
-      - uses: actionslaw/actionslaw-action@v0.16
+      - uses: actionslaw/actionslaw-action@v0.17
         id: trigger
         with:
           on: '
@@ -22,6 +22,7 @@ jobs:
                 "host": "toot.io"
               }
             }'
+          cache: false
 
   print:
     needs: activitypub
