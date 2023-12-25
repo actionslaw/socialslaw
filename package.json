@@ -1,7 +1,7 @@
 {
-  "name": "actionslaw",
-  "version": "0.1.0",
-  "description": "Automation workflows for GitHub Actions, but soft and tasty",
+  "name": "socialslaw",
+  "version": "1.0.0",
+  "description": "Server-less cross-posting using GitHub Actions",
   "author": "Ric Wood <ric@grislyeye.com>",
   "scripts": {
     "start": "act --secret-file .secrets --job print"
