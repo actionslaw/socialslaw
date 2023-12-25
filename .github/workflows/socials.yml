@@ -1,13 +1,13 @@
 name: Socialslaw
-# on:
-#   schedule:
-#     - cron: "*/15 * * * *"
+on:
+  # schedule:
+  #   - cron: "*/15 * * * *"
   push:
     branches:
       - main
 
 jobs:
-  activitypub:
+  actionslaw:
     runs-on: ubuntu-latest
     outputs:
       items: ${{ steps.trigger.outputs.items }}
@@ -18,98 +18,99 @@ jobs:
           on: '
             {
               "activitypub": {
-                "user": "testgrislyeye"
-                "host": "toot.io"
+                "user": "username",
+                "host": "example.com"
               }
             }'
-          cache: false
 
   print:
-    needs: activitypub
+    needs: actionslaw
     if: ${{needs.actionslaw.outputs.items != '[]' && needs.actionslaw.outputs.items != ''}}
     strategy:
       matrix:
-        items: ${{fromJSON(needs.activitypub.outputs.items)}}
+        items: ${{fromJSON(needs.actionslaw.outputs.items)}}
     name: Print
     runs-on: ubuntu-latest
     steps:
       - name: Print Outputs
         env:
-          title: ${{matrix.items.title}}
-          link: ${{matrix.items.link}}
+          items: ${{needs.actionslaw.outputs.items}}
+          uri: ${{matrix.items.uri}}
+          message: ${{matrix.items.message}}
         run: |
-          echo title: $title
-          echo link: $link
+          echo items: $items
+          echo uri: $uri
+          echo message: $message
 
-  twitter:
-    needs: activitypub
-    if: ${{needs.actionslaw.outputs.items != '[]' && needs.actionslaw.outputs.items != ''}}
-    strategy:
-      matrix:
-        items: ${{fromJSON(needs.activitypub.outputs.items)}}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/cache/restore@v3
-        with:
-          path: ./tweets.txt
-          key: ${{ matrix.items.replyto }}
+  # twitter:
+  #   needs: actionslaw
+  #   if: ${{needs.actionslaw.outputs.items != '[]' && needs.actionslaw.outputs.items != ''}}
+  #   strategy:
+  #     matrix:
+  #       items: ${{fromJSON(needs.actionslaw.outputs.items)}}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/cache/restore@v3
+  #       with:
+  #         path: ./tweets.txt
+  #         key: ${{ matrix.items.replyto }}
 
-      - id: read-history
-        run: |
-          if test -f ./tweets.txt; then
-            cat ./tweets.txt  >> $GITHUB_OUTPUT
-          fi
+  #     - id: read-history
+  #       run: |
+  #         if test -f ./tweets.txt; then
+  #           cat ./tweets.txt  >> $GITHUB_OUTPUT
+  #         fi
 
-      - uses: rg-wood/send-tweet-action@v1
-        id: send
-        with:
-          status: ${{ matrix.items.message }}
-          replyto: ${{ steps.read-history.outputs.status }}
-          consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
-          consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
-          access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-          access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+  #     - uses: rg-wood/send-tweet-action@v1
+  #       id: send
+  #       with:
+  #         status: ${{ matrix.items.message }}
+  #         replyto: ${{ steps.read-history.outputs.status }}
+  #         consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+  #         consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+  #         access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+  #         access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
 
-      - id: write-history
-        run: echo 'status=${{ steps.send.outputs.status }}' >> ./tweets.txt
+  #     - id: write-history
+  #       run: echo 'status=${{ steps.send.outputs.status }}' >> ./tweets.txt
 
-      - uses: actions/cache/save@v3
-        with:
-          path: ./tweets.txt
-          key: ${{ matrix.items.uri }}
+  #     - uses: actions/cache/save@v3
+  #       with:
+  #         path: ./tweets.txt
+  #         key: ${{ matrix.items.uri }}
 
-  bluesky:
-    needs: activitypub
-    if: ${{needs.actionslaw.outputs.items != '[]' && needs.actionslaw.outputs.items != ''}}
-    strategy:
-      matrix:
-        items: ${{fromJSON(needs.activitypub.outputs.items)}}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/cache/restore@v3
-        with:
-          path: ./atposts.txt
-          key: ${{ matrix.items.replyto }}
+  # bluesky:
+  #   needs: actionslaw
+  #   if: ${{needs.actionslaw.outputs.items != '[]' && needs.actionslaw.outputs.items != ''}}
+  #   strategy:
+  #     matrix:
+  #       items: ${{fromJSON(needs.actionslaw.outputs.items)}}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/cache/restore@v3
+  #       with:
+  #         path: ./atposts.txt
+  #         key: ${{ matrix.items.replyto }}
 
-      - id: read-history
-        run: |
-          if test -f ./atposts.txt; then
-            cat ./atposts.txt  >> $GITHUB_OUTPUT
-          fi
+  #     - id: read-history
+  #       run: |
+  #         if test -f ./atposts.txt; then
+  #           cat ./atposts.txt  >> $GITHUB_OUTPUT
+  #         fi
 
-      - uses: rg-wood/bluesky-post-action@v1
-        id: post
-        with:
-          text: ${{ matrix.items.message }}
-          replyto: ${{ steps.read-history.outputs.reference }}
-          service: https://bsky.social
-          identifier:
-          password: ${{ secrets.BLUESKY_PASSWORD }}
+  #     - uses: rg-wood/bluesky-post-action@v1
+  #       id: post
+  #       with:
+  #         text: ${{ matrix.items.message }}
+  #         replyto: ${{ steps.read-history.outputs.reference }}
+  #         service: https://bsky.social
+  #         identifier: ric@grislyeye.com
+  #         password: ${{ secrets.BLUESKY_PASSWORD }}
 
-      - id: write-history
-        run: echo 'reference=${{ steps.post.outputs.reference }}' >> ./atposts.txt
+  #     - id: write-history
+  #       run: echo 'reference=${{ steps.post.outputs.reference }}' >> ./atposts.txt
 
-      - uses: actions/cache/save@v3
-        with:
-          path: ./atposts.txt
-          key: ${{ matrix.items.uri }}
+  #     - uses: actions/cache/save@v3
+  #       with:
+  #         path: ./atposts.txt
+  #         key: ${{ matrix.items.uri }}
