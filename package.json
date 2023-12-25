@@ -4,6 +4,6 @@
   "description": "Automation workflows for GitHub Actions, but soft and tasty",
   "author": "Ric Wood <ric@grislyeye.com>",
   "scripts": {
-    "start": "act"
+    "start": "act --secret-file .secrets --job print"
   }
 }
