@@ -1,10 +1,10 @@
 # Socialslaw
 
-Server-less automation workflows for GitHub Actions, but soft and tasty.
+Server-less social media workflows for GitHub Actions.
 
 ## 🏁 Getting Started
 
-Build an Socialslaw is a four-step process:
+Building your own Socialslaw is a four-step process:
 
 1. **Create a public Github repository [here](https://github.com/actionslaw/socialslaw/generate).**
 
