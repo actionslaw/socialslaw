@@ -12,7 +12,7 @@ jobs:
     outputs:
       items: ${{ steps.trigger.outputs.items }}
     steps:
-      - uses: actionslaw/actionslaw-action@v1.1
+      - uses: actionslaw/actionslaw-action@v1.2
         id: trigger
         with:
           on: '
@@ -55,17 +55,24 @@ jobs:
   #         path: ./tweets.txt
   #         key: ${{ matrix.items.replyto }}
 
+  #     - uses: actions/cache/restore@v3
+  #       if: ${{matrix.items.media != ''}}
+  #       with:
+  #         path: ./media/**
+  #         key: ${{ matrix.items.media }}
+
   #     - id: read-history
   #       run: |
   #         if test -f ./tweets.txt; then
   #           cat ./tweets.txt  >> $GITHUB_OUTPUT
   #         fi
 
-  #     - uses: rg-wood/send-tweet-action@v1
+  #     - uses: rg-wood/send-tweet-action@v1.1.1
   #       id: send
   #       with:
   #         status: ${{ matrix.items.message }}
   #         replyto: ${{ steps.read-history.outputs.status }}
+  #         media: ./media
   #         consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
   #         consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
   #         access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
@@ -92,17 +99,24 @@ jobs:
   #         path: ./atposts.txt
   #         key: ${{ matrix.items.replyto }}
 
+  #     - uses: actions/cache/restore@v3
+  #       if: ${{matrix.items.media != ''}}
+  #       with:
+  #         path: ./media/**
+  #         key: ${{ matrix.items.media }}
+
   #     - id: read-history
   #       run: |
   #         if test -f ./atposts.txt; then
   #           cat ./atposts.txt  >> $GITHUB_OUTPUT
   #         fi
 
-  #     - uses: rg-wood/bluesky-post-action@v1
+  #     - uses: rg-wood/bluesky-post-action@v1.1.5
   #       id: post
   #       with:
   #         text: ${{ matrix.items.message }}
   #         replyto: ${{ steps.read-history.outputs.reference }}
+  #         media: ./media
   #         service: https://bsky.social
   #         identifier: ric@grislyeye.com
   #         password: ${{ secrets.BLUESKY_PASSWORD }}
