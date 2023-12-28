@@ -90,7 +90,7 @@ Then, Socialslaw will run your workflows as you defined, you can view logs at yo
 
 ## Run Locally
 
-You can run self-hosted Socialslaw manuall.
+You can run self-hosted Socialslaw manually.
 
 ## Prerequisites
 
@@ -100,7 +100,7 @@ You can run self-hosted Socialslaw manuall.
 
 ### Start
 
-Configure your social account credentisl in a `.secrets` file at the root of this project. Start Socialslaw locally:
+Configure your social account credentials in a `.secrets` file at the root of this project. Start Socialslaw locally:
 
 ```bash
 npm start
