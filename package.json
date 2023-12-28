@@ -1,6 +1,6 @@
 {
   "name": "socialslaw",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Server-less cross-posting using GitHub Actions",
   "author": "Ric Wood <ric@grislyeye.com>",
   "scripts": {

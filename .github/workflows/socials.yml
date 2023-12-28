@@ -37,11 +37,13 @@ jobs:
           items: ${{needs.actionslaw.outputs.items}}
           uri: ${{matrix.items.uri}}
           message: ${{matrix.items.message}}
+          replyTo: ${{matrix.items.replyTo}}
           media: ${{matrix.items.media}}
         run: |
           echo items: $items
           echo uri: $uri
           echo message: $message
+          echo replyTo: $replyTo
           echo media: $media
 
   # twitter:
