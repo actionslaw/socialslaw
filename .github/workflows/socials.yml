@@ -19,7 +19,8 @@ jobs:
             {
               "activitypub": {
                 "user": "username",
-                "host": "example.com"
+                "host": "example.com",
+                "removeTrailingHashtags": "true"
               }
             }'
 
@@ -27,6 +28,8 @@ jobs:
     needs: actionslaw
     if: ${{needs.actionslaw.outputs.items != '[]' && needs.actionslaw.outputs.items != ''}}
     strategy:
+      fail-fast: true
+      max-parallel: 1
       matrix:
         items: ${{fromJSON(needs.actionslaw.outputs.items)}}
     name: Print
@@ -50,6 +53,8 @@ jobs:
   #   needs: actionslaw
   #   if: ${{needs.actionslaw.outputs.items != '[]' && needs.actionslaw.outputs.items != ''}}
   #   strategy:
+  #     fail-fast: true
+  #     max-parallel: 1
   #     matrix:
   #       items: ${{fromJSON(needs.actionslaw.outputs.items)}}
   #   runs-on: ubuntu-latest
@@ -94,6 +99,8 @@ jobs:
   #   needs: actionslaw
   #   if: ${{needs.actionslaw.outputs.items != '[]' && needs.actionslaw.outputs.items != ''}}
   #   strategy:
+  #     fail-fast: true
+  #     max-parallel: 1
   #     matrix:
   #       items: ${{fromJSON(needs.actionslaw.outputs.items)}}
   #   runs-on: ubuntu-latest
