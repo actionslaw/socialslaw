@@ -12,7 +12,7 @@ jobs:
     outputs:
       items: ${{ steps.trigger.outputs.items }}
     steps:
-      - uses: actionslaw/actionslaw-action@v1.2.2
+      - uses: actionslaw/actionslaw-action@v1.2.8
         id: trigger
         with:
           on: '
@@ -41,13 +41,11 @@ jobs:
           uri: ${{matrix.items.uri}}
           message: ${{matrix.items.message}}
           replyTo: ${{matrix.items.replyTo}}
-          media: ${{matrix.items.media}}
         run: |
           echo items: $items
           echo uri: $uri
           echo message: $message
           echo replyTo: $replyTo
-          echo media: $media
 
   # twitter:
   #   needs: actionslaw
@@ -68,7 +66,7 @@ jobs:
   #       if: ${{matrix.items.media != ''}}
   #       with:
   #         path: ./media/**
-  #         key: ${{ matrix.items.media }}
+  #         key: ${{ matrix.items.uri }}
 
   #     - id: read-history
   #       run: |
@@ -114,7 +112,7 @@ jobs:
   #       if: ${{matrix.items.media != ''}}
   #       with:
   #         path: ./media/**
-  #         key: ${{ matrix.items.media }}
+  #         key: ${{ matrix.items.uri }}
 
   #     - id: read-history
   #       run: |
