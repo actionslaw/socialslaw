@@ -12,13 +12,13 @@ jobs:
     outputs:
       items: ${{ steps.trigger.outputs.items }}
     steps:
-      - uses: actionslaw/actionslaw-action@v1.2.8
+      - uses: actionslaw/actionslaw-action@v2.0.2
         id: trigger
         with:
           on: '
             {
               "activitypub": {
-                "user": "username",
+                "id": "activitypub-account-id",
                 "host": "example.com",
                 "removeTrailingHashtags": "true"
               }
