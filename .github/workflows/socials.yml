@@ -137,3 +137,51 @@ jobs:
   #       with:
   #         path: ./atposts.txt
   #         key: ${{ matrix.items.uri }}
+
+  # tumblr:
+  #   needs: actionslaw
+  #   if: ${{needs.actionslaw.outputs.items != '[]' && needs.actionslaw.outputs.items != ''}}
+  #   strategy:
+  #     fail-fast: true
+  #     max-parallel: 1
+  #     matrix:
+  #       items: ${{fromJSON(needs.actionslaw.outputs.items)}}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/cache/restore@v3
+  #       if: ${{matrix.items.replyto != ''}}
+  #       with:
+  #         path: ./tumblr-posts.txt
+  #         key: ${{ matrix.items.replyto }}
+
+  #     - uses: actions/cache/restore@v3
+  #       if: ${{matrix.items.media != ''}}
+  #       with:
+  #         path: ./media/**
+  #         key: ${{ matrix.items.uri }}
+
+  #     - id: read-history
+  #       run: |
+  #         if test -f ./tumblr-posts.txt; then
+  #           cat ./tumblr-posts.txt  >> $GITHUB_OUTPUT
+  #         fi
+
+  #     - uses: actionslaw/tumblr-post-action@v1.2
+  #       id: post
+  #       with:
+  #         text: ${{ matrix.items.message }}
+  #         replyto: ${{ steps.read-history.outputs.reference }}
+  #         media: ./media
+  #         consumer-key: ${{ secrets.TUMBLR_CONSUMER_API_KEY }}
+  #         consumer-secret: ${{ secrets.TUMBLR_CONSUMER_API_SECRET }}
+  #         access-token: ${{ secrets.TUMBLR_ACCESS_TOKEN }}
+  #         access-token-secret: ${{ secrets.TUMBLR_ACCESS_TOKEN_SECRET }}
+  #         blog-identifier: grislyeye-test.tumblr.com
+
+  #     - id: write-history
+  #       run: echo 'reference=${{ steps.post.outputs.post-id }}' >> ./tumblr-posts.txt
+
+  #     - uses: actions/cache/save@v3
+  #       with:
+  #         path: ./tumblr-posts.txt
+  #         key: ${{ matrix.items.uri }}

@@ -83,6 +83,9 @@ You need to set-up consumer and access tokens as GitHub Action secrets in your w
 
 You need to configure the authority and login credentials for your Bluesky account as GitHub Action. See the [send-bluesky-post documentation](https://github.com/marketplace/actions/send-and-reply-bluesky-action#specify-authority) for full instructions.
 
+##### 🥃 Tumblr
+
+You as for the Twitter action above, you need to set-up consumer and access tokens as GitHub Action secrets in your workflow project. See the [send-tweet-action documentation](https://github.com/actionslaw/tumblr-post-action?tab=readme-ov-file#usage) for full instructions. You'll also need to get your blog identifier.
 
 4. **Commit and push your updates to Github**
 
