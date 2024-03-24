@@ -166,7 +166,7 @@ jobs:
   #           cat ./tumblr-posts.txt  >> $GITHUB_OUTPUT
   #         fi
 
-  #     - uses: actionslaw/tumblr-post-action@v1.2
+  #     - uses: actionslaw/tumblr-post-action@v1.2.1
   #       id: post
   #       with:
   #         text: ${{ matrix.items.message }}
