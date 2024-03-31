@@ -12,7 +12,7 @@ jobs:
     outputs:
       items: ${{ steps.trigger.outputs.items }}
     steps:
-      - uses: actionslaw/actionslaw-action@v2.0.4
+      - uses: actionslaw/actionslaw-action@v3
         id: trigger
         with:
           on: '
@@ -41,11 +41,13 @@ jobs:
           uri: ${{matrix.items.uri}}
           message: ${{matrix.items.message}}
           replyTo: ${{matrix.items.replyTo}}
+          tags: ${{matrix.items.tags}}
         run: |
           echo items: $items
           echo uri: $uri
           echo message: $message
           echo replyTo: $replyTo
+          echo tags: $tags
 
   # twitter:
   #   needs: actionslaw
@@ -166,12 +168,13 @@ jobs:
   #           cat ./tumblr-posts.txt  >> $GITHUB_OUTPUT
   #         fi
 
-  #     - uses: actionslaw/tumblr-post-action@v1.2.1
+  #     - uses: actionslaw/tumblr-post-action@v1.3
   #       id: post
   #       with:
   #         text: ${{ matrix.items.message }}
   #         replyto: ${{ steps.read-history.outputs.reference }}
   #         media: ./media
+  #         tags: ${{ matrix.items.tags }}
   #         consumer-key: ${{ secrets.TUMBLR_CONSUMER_API_KEY }}
   #         consumer-secret: ${{ secrets.TUMBLR_CONSUMER_API_SECRET }}
   #         access-token: ${{ secrets.TUMBLR_ACCESS_TOKEN }}
